@@ -15580,6 +15580,8 @@ None
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_model</span><span class="p">(</span><span class="n">input_to_softmax</span><span class="o">=</span><span class="n">model_2</span><span class="p">,</span> 
+            <span class="n">minibatch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+            <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
             <span class="n">pickle_path</span><span class="o">=</span><span class="s1">&#39;model_2.pickle&#39;</span><span class="p">,</span> 
             <span class="n">save_model_path</span><span class="o">=</span><span class="s1">&#39;model_2.h5&#39;</span><span class="p">,</span> 
             <span class="n">spectrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># change to False if you would like to use MFCC features</span>
@@ -15819,7 +15821,7 @@ Epoch 20/20
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_4</span> <span class="o">=</span> <span class="n">bidirectional_rnn_model</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">161</span><span class="p">,</span> <span class="c1"># change to 13 if you would like to use MFCC features</span>
@@ -15845,9 +15847,9 @@ Layer (type)                 Output Shape              Param #
 =================================================================
 the_input (InputLayer)       (None, None, 161)         0         
 _________________________________________________________________
-bidirectional_26 (Bidirectio (None, None, 400)         144800    
+bidirectional_29 (Bidirectio (None, None, 400)         144800    
 _________________________________________________________________
-time_distributed_43 (TimeDis (None, None, 29)          11629     
+time_distributed_50 (TimeDis (None, None, 29)          11629     
 _________________________________________________________________
 softmax (Activation)         (None, None, 29)          0         
 =================================================================
@@ -15875,10 +15877,12 @@ None
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[66]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">train_model</span><span class="p">(</span><span class="n">input_to_softmax</span><span class="o">=</span><span class="n">model_4</span><span class="p">,</span> 
+            <span class="n">minibatch_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+            <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">pickle_path</span><span class="o">=</span><span class="s1">&#39;model_4.pickle&#39;</span><span class="p">,</span> 
             <span class="n">save_model_path</span><span class="o">=</span><span class="s1">&#39;model_4.h5&#39;</span><span class="p">,</span> 
             <span class="n">spectrogram</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># change to False if you would like to use MFCC features</span>
@@ -15898,46 +15902,16 @@ None
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Epoch 1/20
-4/4 [==============================] - 59s - loss: 886.9164 - val_loss: 596.1913
-Epoch 2/20
-4/4 [==============================] - 50s - loss: 546.4244 - val_loss: 469.5260
-Epoch 3/20
-4/4 [==============================] - 49s - loss: 499.0488 - val_loss: 464.1347
-Epoch 4/20
-4/4 [==============================] - 46s - loss: 476.0401 - val_loss: 443.2123
-Epoch 5/20
-4/4 [==============================] - 48s - loss: 454.0524 - val_loss: 478.8964
-Epoch 6/20
-4/4 [==============================] - 47s - loss: 458.2006 - val_loss: 487.6522
-Epoch 7/20
-4/4 [==============================] - 47s - loss: 462.7966 - val_loss: 444.5470
-Epoch 8/20
-4/4 [==============================] - 48s - loss: 461.4233 - val_loss: 435.4913
-Epoch 9/20
-4/4 [==============================] - 48s - loss: 440.4740 - val_loss: 443.5127
-Epoch 10/20
-4/4 [==============================] - 48s - loss: 433.5995 - val_loss: 435.4283
-Epoch 11/20
-4/4 [==============================] - 46s - loss: 434.4197 - val_loss: 428.4784
-Epoch 12/20
-4/4 [==============================] - 49s - loss: 427.1280 - val_loss: 464.1954
-Epoch 13/20
-4/4 [==============================] - 48s - loss: 425.3201 - val_loss: 436.9962
-Epoch 14/20
-4/4 [==============================] - 47s - loss: 421.6823 - val_loss: 424.7521
-Epoch 15/20
-4/4 [==============================] - 48s - loss: 424.5934 - val_loss: 428.7951
-Epoch 16/20
-4/4 [==============================] - 48s - loss: 425.6270 - val_loss: 425.3270
-Epoch 17/20
-4/4 [==============================] - 47s - loss: 435.4506 - val_loss: 424.0863
-Epoch 18/20
-4/4 [==============================] - 48s - loss: 420.5658 - val_loss: 424.6351
-Epoch 19/20
-4/4 [==============================] - 47s - loss: 419.4547 - val_loss: 443.4923
-Epoch 20/20
-4/4 [==============================] - 46s - loss: 428.6930 - val_loss: 387.6856
+<pre>Epoch 1/5
+4/4 [==============================] - 59s - loss: 702.1001 - val_loss: 787.0465
+Epoch 2/5
+4/4 [==============================] - 51s - loss: 671.2543 - val_loss: 661.1070
+Epoch 3/5
+4/4 [==============================] - 48s - loss: 497.5406 - val_loss: 345.4952
+Epoch 4/5
+4/4 [==============================] - 47s - loss: 337.1789 - val_loss: 316.2041
+Epoch 5/5
+4/4 [==============================] - 47s - loss: 312.2782 - val_loss: 295.8313
 </pre>
 </div>
 </div>
@@ -16880,7 +16854,7 @@ YII=
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># specify the model</span>
@@ -16910,23 +16884,23 @@ Layer (type)                 Output Shape              Param #
 =================================================================
 the_input (InputLayer)       (None, None, 161)         0         
 _________________________________________________________________
-bidirectional_24 (Bidirectio (None, None, 512)         642048    
+bidirectional_27 (Bidirectio (None, None, 512)         642048    
 _________________________________________________________________
-time_distributed_39 (TimeDis (None, None, 29)          14877     
+time_distributed_46 (TimeDis (None, None, 29)          14877     
 _________________________________________________________________
-dropout_29 (Dropout)         (None, None, 29)          0         
+dropout_32 (Dropout)         (None, None, 29)          0         
 _________________________________________________________________
-bidirectional_25 (Bidirectio (None, None, 512)         439296    
+bidirectional_28 (Bidirectio (None, None, 512)         439296    
 _________________________________________________________________
-time_distributed_40 (TimeDis (None, None, 29)          14877     
+time_distributed_47 (TimeDis (None, None, 29)          14877     
 _________________________________________________________________
-dropout_30 (Dropout)         (None, None, 29)          0         
+dropout_33 (Dropout)         (None, None, 29)          0         
 _________________________________________________________________
-time_distributed_41 (TimeDis (None, None, 512)         15360     
+time_distributed_48 (TimeDis (None, None, 512)         15360     
 _________________________________________________________________
-dropout_31 (Dropout)         (None, None, 512)         0         
+dropout_34 (Dropout)         (None, None, 512)         0         
 _________________________________________________________________
-time_distributed_42 (TimeDis (None, None, 29)          14877     
+time_distributed_49 (TimeDis (None, None, 29)          14877     
 _________________________________________________________________
 softmax (Activation)         (None, None, 29)          0         
 =================================================================
@@ -17030,7 +17004,7 @@ Epoch 10/10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -17067,9 +17041,12 @@ Epoch 10/10
     <span class="c1"># obtain and decode the acoustic model&#39;s predictions</span>
     <span class="n">input_to_softmax</span><span class="o">.</span><span class="n">load_weights</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
     <span class="n">prediction</span> <span class="o">=</span> <span class="n">input_to_softmax</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">expand_dims</span><span class="p">(</span><span class="n">data_point</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">prediction</span><span class="p">)</span>
     <span class="n">output_length</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_to_softmax</span><span class="o">.</span><span class="n">output_length</span><span class="p">(</span><span class="n">data_point</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span> 
+    <span class="nb">print</span><span class="p">(</span><span class="n">output_length</span><span class="p">)</span>
     <span class="n">pred_ints</span> <span class="o">=</span> <span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">K</span><span class="o">.</span><span class="n">ctc_decode</span><span class="p">(</span>
                 <span class="n">prediction</span><span class="p">,</span> <span class="n">output_length</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pred_ints</span><span class="p">)</span>
     
     <span class="c1"># play the audio file, and display the true and predicted transcriptions</span>
     <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="o">*</span><span class="mi">80</span><span class="p">)</span>
@@ -17096,13 +17073,13 @@ Epoch 10/10
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_predictions</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
                 <span class="n">partition</span><span class="o">=</span><span class="s1">&#39;train&#39;</span><span class="p">,</span>
-                <span class="n">input_to_softmax</span><span class="o">=</span><span class="n">model_end</span><span class="p">,</span> 
-                <span class="n">model_path</span><span class="o">=</span><span class="s1">&#39;results/model_end.h5&#39;</span><span class="p">)</span>
+                <span class="n">input_to_softmax</span><span class="o">=</span><span class="n">model_4</span><span class="p">,</span> 
+                <span class="n">model_path</span><span class="o">=</span><span class="s1">&#39;results/model_4.h5&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -17119,14 +17096,29 @@ Epoch 10/10
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>--------------------------------------------------------------------------------
+<pre>[[[  5.40220244e-05   1.10710887e-02   1.45304259e-02 ...,   2.70888302e-03
+     1.93425454e-04   8.41291964e-01]
+  [  6.70430527e-05   8.35138187e-03   9.35413409e-03 ...,   1.23375573e-03
+     8.69831056e-05   8.93229604e-01]
+  [  3.72335380e-05   3.53383785e-03   6.95275236e-03 ...,   4.97080095e-04
+     5.12610459e-05   9.44528818e-01]
+  ..., 
+  [  1.39489042e-04   1.09023955e-02   1.29237184e-02 ...,   1.33853371e-03
+     2.50078272e-04   8.40164840e-01]
+  [  5.64537477e-05   5.09956572e-03   4.92226239e-03 ...,   4.29994689e-04
+     5.91407406e-05   9.13541853e-01]
+  [  6.50417292e-04   1.05964029e-02   1.63241699e-02 ...,   2.70750467e-03
+     3.07722192e-04   7.82369196e-01]]]
+[353]
+[7]
+--------------------------------------------------------------------------------
 True transcription:
 
 long ago there lived a merchant who had three daughters
 --------------------------------------------------------------------------------
 Predicted transcription:
 
-
+e
 --------------------------------------------------------------------------------
 </pre>
 </div>
@@ -17147,13 +17139,13 @@ Predicted transcription:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="prompt input_prompt">In&nbsp;[62]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">get_predictions</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> 
                 <span class="n">partition</span><span class="o">=</span><span class="s1">&#39;validation&#39;</span><span class="p">,</span>
-                <span class="n">input_to_softmax</span><span class="o">=</span><span class="n">model_end</span><span class="p">,</span> 
-                <span class="n">model_path</span><span class="o">=</span><span class="s1">&#39;results/model_end.h5&#39;</span><span class="p">)</span>
+                <span class="n">input_to_softmax</span><span class="o">=</span><span class="n">model_2</span><span class="p">,</span> 
+                <span class="n">model_path</span><span class="o">=</span><span class="s1">&#39;results/model_2.h5&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -17170,14 +17162,29 @@ Predicted transcription:
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>--------------------------------------------------------------------------------
+<pre>[[[  2.31810054e-03   2.05679840e-04   7.69402971e-03 ...,   9.57287150e-04
+     5.01483853e-04   7.84669042e-01]
+  [  4.16760158e-04   8.49265198e-05   5.82184002e-04 ...,   3.27310205e-04
+     5.44929499e-05   9.77414489e-01]
+  [  2.69839540e-04   1.85895187e-04   3.52957228e-04 ...,   2.41289817e-04
+     7.47326267e-05   9.86188591e-01]
+  ..., 
+  [  5.32692065e-04   2.16965578e-04   4.79795388e-04 ...,   1.33922018e-04
+     1.34729329e-04   9.82417226e-01]
+  [  6.38410100e-04   2.18271176e-04   4.90713632e-04 ...,   1.51122542e-04
+     1.36689530e-04   9.81096089e-01]
+  [  7.36183603e-04   2.22719464e-04   4.92665335e-04 ...,   1.69543520e-04
+     1.41813143e-04   9.79863465e-01]]]
+[434]
+[6, 11, 6, 2, 25, 20, 22, 17, 2, 11, 21, 20, 3, 21, 2, 18, 17, 22, 20, 20, 2, 11, 2, 3, 6, 2, 15, 2, 18, 17, 2, 22, 11, 2, 3, 16, 6, 2, 11, 3, 2, 6, 22, 3, 21, 11, 22, 3, 17, 21, 11, 2, 14, 17, 16, 2, 2, 22, 3, 20, 2, 8, 20, 3, 20, 3]
+--------------------------------------------------------------------------------
 True transcription:
 
 in order to please her i spoke to her of the abbe conti and i had occasion to quote two lines of that profound writer
 --------------------------------------------------------------------------------
 Predicted transcription:
 
-
+did wrto isras potrr i ad m po ti and ia dtasitaosi lon  tar frara
 --------------------------------------------------------------------------------
 </pre>
 </div>
@@ -17199,7 +17206,7 @@ Predicted transcription:
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[50]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!!</span>python -m nbconvert *.ipynb
@@ -17215,14 +17222,14 @@ Predicted transcription:
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[31]:</div>
+<div class="prompt output_prompt">Out[50]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
 <pre>[&#39;[NbConvertApp] Converting notebook vui_notebook.ipynb to html&#39;,
- &#39;[NbConvertApp] Writing 800713 bytes to vui_notebook.html&#39;]</pre>
+ &#39;[NbConvertApp] Writing 793543 bytes to vui_notebook.html&#39;]</pre>
 </div>
 
 </div>
