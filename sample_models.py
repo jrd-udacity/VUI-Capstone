@@ -150,7 +150,7 @@ def bidirectional_rnn_model(input_dim, units, output_dim=29):
     print(model.summary())
     return model
 
-def final_model(input_dim, units, layers=2, output_dim=29, dropout_rate=0.4):
+def final_model(input_dim, units, layers=2, output_dim=29, dropout_rate=0.4, activation='relu'):
     """ Build a deep network for speech 
     """
     # Main acoustic input
@@ -159,9 +159,9 @@ def final_model(input_dim, units, layers=2, output_dim=29, dropout_rate=0.4):
 
     #bidir_rnn = Bidirectional(SimpleRNN(units, activation='relu',
     #    return_sequences=True, implementation=2, name='rnn1'), merge_mode='concat', weights=None)(input_data)
-    rnn = Bidirectional(GRU(units, activation='relu', dropout=dropout_rate, return_sequences=True, name='rnn1'))(input_data)
-    rnn = TimeDistributed(Dense(output_dim, activation='relu'))(rnn)
-    rnn = Dropout(0.4)(rnn)
+    rnn = Bidirectional(GRU(units, activation=activation, dropout=dropout_rate, return_sequences=True, name='rnn1'))(input_data)
+    rnn = TimeDistributed(Dense(output_dim, activation=activation))(rnn)
+    rnn = Dropout(dropout_rate)(rnn)
 
     # only allow up to 6 layers
     if layers > 6: layers = 6
@@ -170,10 +170,10 @@ def final_model(input_dim, units, layers=2, output_dim=29, dropout_rate=0.4):
         for l in range(layers-1):
             print(l)
             lname = 'rnn' + str(l)
-            rnn = Bidirectional(GRU(units, activation='relu', dropout=dropout_rate, return_sequences=True, name=lname))(rnn)
-            rnn = TimeDistributed(Dense(output_dim, activation='relu'))(rnn)
+            rnn = Bidirectional(GRU(units, activation=activation, dropout=dropout_rate, return_sequences=True, name=lname))(rnn)
+            rnn = TimeDistributed(Dense(output_dim, activation=activation))(rnn)
             rnn = Dropout(dropout_rate)(rnn)
-    rnn = TimeDistributed(Dense(512, activation='relu'))(rnn)
+    rnn = TimeDistributed(Dense(512, activation=activation))(rnn)
     rnn = Dropout(dropout_rate)(rnn)
     rnn = TimeDistributed(Dense(output_dim))(rnn)
     # TODO: Add softmax activation layer
