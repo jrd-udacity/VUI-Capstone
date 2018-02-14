@@ -187,3 +187,71 @@ def final_model(input_dim, units, layers=2, output_dim=29, dropout_rate=0.4, act
     model.output_length = lambda x: x
     print(model.summary())
     return model
+
+def final_cnn_model(input_dim, filters, kernel_size, conv_stride,
+                    conv_border_mode, units, layers=2, dropout_rate=0.4,
+                    activation='relu', output_dim=29):
+    """ Build a deep network for speech
+    """
+    # Main acoustic input
+    input_data = Input(name='the_input', shape=(None, input_dim))
+    # TODO: Specify the layers in your network
+
+    # Add convolutional layer
+    conv = Conv1D(filters, kernel_size,
+                     strides=conv_stride,
+                     padding=conv_border_mode,
+                     activation='relu',
+                     name='conv1d')(input_data)
+    # Add batch normalization
+    conv = BatchNormalization(name='bn_conv_1d')(conv)
+
+## First try --> generates blank or nearly blank transcriptions
+    #bidir_rnn = Bidirectional(SimpleRNN(units, activation='relu',
+    #    return_sequences=True, implementation=2, name='rnn1'), merge_mode='concat', weights=None)(input_data)
+##    rnn = Bidirectional(GRU(units, activation=activation, dropout=dropout_rate,
+##                            return_sequences=True, name='rnn1'))(conv)
+##    rnn = TimeDistributed(Dense(output_dim, activation=activation))(rnn)
+##    rnn = Dropout(dropout_rate)(rnn)
+
+##    # only allow up to 6 layers
+##    if layers > 6: layers = 6
+##    # add layers
+##    if layers > 1:
+##        for l in range(layers-1):
+##            print(l)
+##            lname = 'rnn' + str(l)
+##            rnn = Bidirectional(GRU(units, activation=activation, dropout=dropout_rate,
+##                                    return_sequences=True, name=lname))(rnn)
+##            rnn = TimeDistributed(Dense(output_dim, activation=activation))(rnn)
+##            rnn = Dropout(dropout_rate)(rnn)
+##    rnn = TimeDistributed(Dense(512, activation=activation))(rnn)
+##    rnn = Dropout(dropout_rate)(rnn)
+
+## Second try
+
+    rnn = GRU(units, activation=activation, return_sequences=True,
+              name='rnn_1', dropout=dropout_rate)(conv)
+    rnn = BatchNormalization(name='bt_rnn_1')(rnn)
+    if layers > 1:
+        for l in range(layers-1):
+            #print(l)
+            lname = 'rnn' + str(l)
+            bname = 'bnn' + str(l)
+            rnn = GRU(units, activation=activation, return_sequences=True,
+                      name=lname, dropout=dropout_rate)(rnn)
+            rnn = BatchNormalization(name=bname)(rnn)
+        ##
+    rnn = TimeDistributed(Dense(512, activation=activation))(rnn)
+    rnn = Dropout(dropout_rate)(rnn)
+    rnn = TimeDistributed(Dense(output_dim))(rnn)
+    # TODO: Add softmax activation layer
+    y_pred = Activation('softmax', name='softmax')(rnn)
+    # Specify the model
+    model = Model(inputs=input_data, outputs=y_pred)
+    # TODO: Specify model.output_length
+    model.output_length = lambda x: cnn_output_length(
+        x, kernel_size, conv_border_mode, conv_stride)
+
+    print(model.summary())
+    return model
