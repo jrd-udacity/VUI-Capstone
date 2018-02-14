@@ -8,7 +8,7 @@ import _pickle as pickle
 from keras import backend as K
 from keras.models import Model
 from keras.layers import (Input, Lambda)
-from keras.optimizers import SGD
+from keras.optimizers import SGD, Adam
 from keras.callbacks import ModelCheckpoint   
 import os
 
@@ -33,6 +33,7 @@ def train_model(input_to_softmax,
                 pickle_path,
                 save_model_path,
                 train_json='train_corpus.json',
+                #train_json='train_corpus-c100.json',
                 valid_json='valid_corpus.json',
                 minibatch_size=512,
                 spectrogram=True,
